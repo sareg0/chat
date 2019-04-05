@@ -1,25 +1,45 @@
+const formEl = document.querySelector('form#message-form')
+formEl.onsubmit = createMessage
+
+const messageRequest = new Request(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0?token=${TOKEN}`)
+
 function getAllMessages () {
-  fetch(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0?token=${TOKEN}`)
+  fetch(messageRequest)
     .then((response) => {
-      return response.json()
+      if (response.ok) {
+        return response.json()
+      }
+      throw new Error("Could not retrieve messages")
     })
     .then((myJson) => {
       console.log(JSON.stringify(myJson));
+    })
+    .catch((error) => {
+      console.log('There was a problem with the network')
     })
 }
 
 function getSomeMessages() {
-  fetch(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0?token=${TOKEN}&limit=1`)
+  fetch(`${messageRequest}&limit=1`)
     .then((response) => {
-      return response.json()
+      if (response.ok) {
+        return response.json()
+      }
+      throw new Error("Could not retrieve messages")
     })
     .then((myJson) => {
       console.log(JSON.stringify(myJson));
     })
+    .catch((error) => {
+      console.log('There was a problem with the network')
+    })
 }
 
-function createMessage(message) {
-  return fetch(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0?token=${TOKEN}`, {
+function createMessage(event) {
+  event.preventDefault()
+  const message = { message: event.target[0].value, author: author }
+  console.log(message)
+  return fetch(messageRequest, {
     method: 'POST',
     mode: 'cors',
     headers: {
@@ -28,7 +48,8 @@ function createMessage(message) {
     body: JSON.stringify(message)
   })
   .then(response => response.json())
+  .catch((error) => {
+    console.log(error)
+    console.log('There was a problem with the network')
+  })
 }
-
-// // createMessage({ 'message': 'And again!!', 'author': 'Sara' })
-// getAllMessages()
