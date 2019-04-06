@@ -4,19 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="./index.js" defer></script>
+  <script src="./index.js" async></script>
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="background.css">
   <title>Your messages</title>
 </head>
-<body>
+<style>
+  .message-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  .sticky-bottom {
+    position: fixed;
+    bottom: 0;
+    background: lightblue;
+    height: 10vh;
+    width: 100%;
+    padding: 10px;
+  }
+
+  .button {
+    background:lightcoral;
+    color: white;
+  }
+
+  .border-radius-1 {
+    border-radius: 4px;
+  }
+
+  .p5 {
+    padding: 5px;
+  }
+
+  .messages {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 100px;
+  }
+
+  .flex-end {
+    align-self: flex-end
+  }
+
+  .message {
+    background-color: green;
+    border-radius: 4px;
+    max-width: 200px;
+    min-width: 100px;
+    padding: 10px;
+    margin: 10px;
+  }
+
+  .flex-center-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+</style>
+<body class="pattern">
   <div class="message-container">
-    <section class="message">
+    <section class="messages"></section>
 
-    </section>
-
-    <form id="message-form" action="">
-      <input type="text">
-      <input type="submit" value="Send">
-    </form>
+    <div class="sticky-bottom flex-center-center">
+      <form id="message-form" action="">
+        <input class="p5 border-radius-1" type="text">
+        <input class="p5 button border-radius-1" type="submit" value="Send">
+      </form>
+    </div>
   </div>
 </body>
 </html>
