@@ -10,6 +10,28 @@
   <title>Your messages</title>
 </head>
 <style>
+  :root {
+    --light-yellow: #fcf6c4;
+    --light-gray: #dfe0e3;
+    --medium-gray: #bcc1c5;
+    --dark-gray: #4d5159;
+    --blue: #3898d4;
+  }
+
+  body {
+    color: #4d5159;
+    color: var(--dark-gray);
+    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  }
+
+  .w-40 {
+    width: 40%;
+  }
+
+  .w-10 {
+    width: 10%;
+  }
+
   .message-container {
     position: relative;
     display: flex;
@@ -19,8 +41,8 @@
   .sticky-bottom {
     position: fixed;
     bottom: 0;
-    background: lightblue;
-    height: 10vh;
+    background-color: #3898d4;
+    background-color: var(--blue);
     width: 100%;
     padding: 10px;
   }
@@ -38,24 +60,45 @@
     padding: 5px;
   }
 
+  .ml5 {
+    margin-left: 5px;
+  }
+
   .messages {
-    width: 60%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     padding-bottom: 100px;
   }
 
-  .flex-end {
-    align-self: flex-end
-  }
-
   .message {
-    background-color: green;
     border-radius: 4px;
-    max-width: 200px;
-    min-width: 100px;
+    max-width: 60%;
+    min-width: 20%;
     padding: 10px;
     margin: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #dfe0e3;
+    border-color: var(--light-gray);
+    background-color: white;
+  }
+
+  .light-text {
+    color: #bcc1c5;
+    color: var(--medium-gray);
+    font-size: 1.25rem;
+    margin-top: 10px;
+  }
+
+  .ta-r {
+    text-align: right;
+  }
+
+  .author {
+    background-color:#fcf6c4;
+    background-color: var(--light-yellow);
+    align-self: flex-end;
   }
 
   .flex-center-center {
@@ -63,15 +106,46 @@
     align-items: center;
     justify-content: center;
   }
+
+  .footer-form {
+    width: 100%;
+  }
+
+  .footer-text-input {
+    height: 50px;
+    border: none;
+    width: 80%;
+  }
+
+  .footer-button {
+    width: 20%;
+    height: 50px;
+    border: none;
+  }
+
+  @media (min-width: 500px) {
+    .footer-form {
+      width: 70%;
+    }
+    .footer-text-input {
+      width: 80%;
+    }
+    .messages {
+      width: 70%;
+    }
+    .message {
+      max-width: 60%;
+    }
+  }
 </style>
 <body class="pattern">
   <div class="message-container">
     <section class="messages"></section>
 
     <div class="sticky-bottom flex-center-center">
-      <form id="message-form" action="">
-        <input class="p5 border-radius-1" type="text">
-        <input class="p5 button border-radius-1" type="submit" value="Send">
+      <form id="message-form" class="footer-form flex-center-center" action="">
+        <input class="w-40 footer-text-input p5 border-radius-1" type="text">
+        <input class="ml5 w-10 footer-button p5 button border-radius-1" type="submit" value="Send">
       </form>
     </div>
   </div>

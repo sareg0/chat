@@ -24,25 +24,33 @@ function getAllMessages () {
 }
 
 function updateLastMessageTimeStamp(x) {
-  lastMessageTime = x[x.length - 1];
-  console.log("lastMessageTime", lastMessageTime)
+  lastMessageTime = x[x.length - 1]
 }
 
 function print(messages) {
-  //TODO differentiate between message I have sent v. those from other Authors
   messages.forEach((message) => {
-    console.log(message)
-    let messageEl = document.createElement('div')
-    let nameEl = document.createElement('p')
-    let textEl = document.createElement('p')
+    const date = new Date(message['timestamp']).toUTCString()
     let dateTimeEl = document.createElement('p')
-    nameEl.classList.add('light-text')
     dateTimeEl.classList.add('light-text')
-    nameEl.textContent = message["author"]
-    dateTimeEl.textContent = message["timestamp"]
+    dateTimeEl.textContent = date
+
+    let messageEl = document.createElement('div')
     messageEl.classList.add('message')
-    textEl.textContent = message["message"]
-    messageEl.append(textEl, nameEl, dateTimeEl)
+
+    let textEl = document.createElement('p')
+    textEl.textContent = message['message']
+
+    if (message.token != TOKEN) {
+      let nameEl = document.createElement('p')
+      nameEl.textContent = message['author']
+      nameEl.classList.add('light-text')
+      messageEl.append(nameEl, textEl, dateTimeEl)
+    } else {
+      dateTimeEl.classList.add('ta-r')
+      messageEl.append(textEl, dateTimeEl)
+      messageEl.classList.add('author')
+    }
+
     messagesList.append(messageEl)
   })
 }
