@@ -1,10 +1,15 @@
+// const TOKEN = put token for API here :)
+// const author = put author name here :)
+const TOKEN = 'XM4jwxS3mvbU'
+const author = 'Sara'
+
+const messagesList = document.querySelector('section.messages')
 const formEl = document.querySelector('form#message-form')
 formEl.onsubmit = createMessage
-const messagesList = document.querySelector("section.messages")
 
 const messageRequest = new Request(`https://chatty.kubernetes.doodle-test.com/api/chatty/v1.0?token=${TOKEN}`)
 
-let lastMessageTime;
+let lastMessageTime
 
 function getAllMessages () {
   fetch(messageRequest)
@@ -12,39 +17,41 @@ function getAllMessages () {
       if (response.ok) {
         return response.json()
       }
-      throw new Error("Could not retrieve messages")
+      throw new Error('Could not retrieve messages')
     })
-    .then((myJson) => {
-      print(myJson)
-      updateLastMessageTimeStamp(myJson)
+    .then((response) => {
+      print(response)
+      updateLastMessageTimeStamp(response)
     })
     .catch((error) => {
       console.log('There was a problem with the network')
     })
 }
 
-function updateLastMessageTimeStamp(x) {
-  lastMessageTime = x[x.length - 1]
+function updateLastMessageTimeStamp(messages) {
+  lastMessageTime = messages[messages.length - 1]
 }
 
 function print(messages) {
   messages.forEach((message) => {
     const date = new Date(message['timestamp']).toUTCString()
     let dateTimeEl = document.createElement('p')
-    dateTimeEl.classList.add('light-text')
+    dateTimeEl.classList.add('message__text-small')
     dateTimeEl.textContent = date
 
     let messageEl = document.createElement('div')
     messageEl.classList.add('message')
 
     let textEl = document.createElement('p')
-    textEl.textContent = message['message']
+    // for messages we use innerHTML because messages contain HTML encoding
+    textEl.innerHTML = message['message']
 
     if (message.token != TOKEN) {
       let nameEl = document.createElement('p')
       nameEl.textContent = message['author']
-      nameEl.classList.add('light-text')
+      nameEl.classList.add('message__text-small')
       messageEl.append(nameEl, textEl, dateTimeEl)
+      messageEl.classList.add('interlocutor')
     } else {
       dateTimeEl.classList.add('ta-r')
       messageEl.append(textEl, dateTimeEl)
@@ -61,14 +68,15 @@ function getNewMessagesSince(lastMessage) {
       if (response.ok) {
         return response.json()
       }
-      throw new Error("Could not retrieve messages")
+      throw new Error('Could not retrieve messages')
     })
-    .then((myJson) => {
-      print(myJson)
-      updateLastMessageTimeStamp(myJson)
+    .then((response) => {
+      print(response)
+      updateLastMessageTimeStamp(response)
     })
     .catch((error) => {
       console.log('There was a problem with the network')
+      // TODO: something better than console.log ;)
     })
 }
 
@@ -86,10 +94,12 @@ function createMessage(event) {
   })
     .then(response => {
       getNewMessagesSince(lastMessageTime)
+      formEl.reset()
     })
     .catch((error) => {
       console.log(error)
       console.log('There was a problem with the network')
+      // TODO: something better than console.log ;)
     })
 }
 

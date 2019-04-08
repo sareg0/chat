@@ -11,11 +11,12 @@
 </head>
 <style>
   :root {
-    --light-yellow: #fcf6c4;
+    --light-yellow: #FCF8D4;
     --light-gray: #dfe0e3;
-    --medium-gray: #bcc1c5;
+    --medium-gray: #848C94;
     --dark-gray: #4d5159;
-    --blue: #3898d4;
+    --blue: #B7DAF1;
+    --primary-button: #B11616;
   }
 
   body {
@@ -24,35 +25,16 @@
     font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
   }
 
+  /* functional classes start */
+  .w-100 {
+    width: 100%;
+  }
+
   .w-40 {
     width: 40%;
   }
 
-  .w-10 {
-    width: 10%;
-  }
-
-  .message-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-  }
-
-  .sticky-bottom {
-    position: fixed;
-    bottom: 0;
-    background-color: #3898d4;
-    background-color: var(--blue);
-    width: 100%;
-    padding: 10px;
-  }
-
-  .button {
-    background:lightcoral;
-    color: white;
-  }
-
-  .border-radius-1 {
+  .rounded-corner {
     border-radius: 4px;
   }
 
@@ -62,6 +44,23 @@
 
   .ml5 {
     margin-left: 5px;
+  }
+
+  .ta-r {
+    text-align: right;
+  }
+
+  .fcc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* functional classes end */
+  .chat {
+    position: relative;
+    display: flex;
+    justify-content: center;
   }
 
   .messages {
@@ -84,54 +83,58 @@
     background-color: white;
   }
 
-  .light-text {
-    color: #bcc1c5;
+  .message__text-small {
+    color: #848C94;
     color: var(--medium-gray);
     font-size: 1.25rem;
     margin-top: 10px;
   }
 
-  .ta-r {
-    text-align: right;
-  }
-
   .author {
-    background-color:#fcf6c4;
+    background-color:#FCF8D4;
     background-color: var(--light-yellow);
     align-self: flex-end;
   }
 
-  .flex-center-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .interlocutor {
+    align-self: flex-start;
   }
 
-  .footer-form {
+  .footer {
+    position: fixed;
+    bottom: 0;
+    background-color: #B7DAF1;
+    background-color: var(--blue);
+    width: 100%;
+    padding: 10px;
+  }
+
+  .footer__form {
     width: 100%;
   }
 
-  .footer-text-input {
-    height: 50px;
+  .footer__text-input, .footer__button {
     border: none;
+    height: 50px;
+  }
+
+  .footer__text-input  {
     width: 80%;
   }
 
-  .footer-button {
+  .footer__button {
     width: 20%;
-    height: 50px;
-    border: none;
+    background-color: var(--primary-button);
+    background-color:#B11616;
+    color: white;
   }
 
-  @media (min-width: 500px) {
-    .footer-form {
-      width: 70%;
+  @media (min-width: 600px) {
+    .footer__form, .messages {
+      width: 50%;
     }
-    .footer-text-input {
+    .footer__text-input {
       width: 80%;
-    }
-    .messages {
-      width: 70%;
     }
     .message {
       max-width: 60%;
@@ -139,13 +142,14 @@
   }
 </style>
 <body class="pattern">
-  <div class="message-container">
+  <div class="chat">
     <section class="messages"></section>
 
-    <div class="sticky-bottom flex-center-center">
-      <form id="message-form" class="footer-form flex-center-center" action="">
-        <input class="w-40 footer-text-input p5 border-radius-1" type="text">
-        <input class="ml5 w-10 footer-button p5 button border-radius-1" type="submit" value="Send">
+    <div class="footer fcc">
+      <form id="message-form" class="footer__form fcc" action="">
+        <label for="message" class="sr-only">Message</label>
+        <input id="message" class="footer__text-input w-40 p5 rounded-corner" type="text" placeholder="Message">
+        <input class="footer__button ml5 p5 rounded-corner" type="submit" value="Send">
       </form>
     </div>
   </div>
