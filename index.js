@@ -1,7 +1,5 @@
-// const TOKEN = put token for API here :)
-// const author = put author name here :)
-const TOKEN = 'XM4jwxS3mvbU'
-const author = 'Sara'
+const TOKEN = // put token for API here :)
+const author = // put author name here :)
 
 const messagesList = document.querySelector('section.messages')
 const formEl = document.querySelector('form#message-form')
